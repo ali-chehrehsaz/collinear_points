@@ -1,6 +1,10 @@
-# Project Title
+# Distinct set of lines intersecting 3 or more points in 2-dimensional space
 
-Project short description
+Using lateast release of Python as of this writting, i.e. Python 3.8.1, we write a function that takes 
+- a list of x, y coordinates in 2-dimensional space as an input, and
+- returns a distinct list of lines that intersect 3 or more points from the input set.
+
+This function may be part of a larger application that includes other functions.
 
 
 ### Technologies
@@ -25,4 +29,5 @@ Project short description
 ### Run Tests
 
 ---
-###### Acknowledgements 
+###### Acknowledgements
+- TerraVerde Energy
