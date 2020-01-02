@@ -1,0 +1,6 @@
+[run]
+omit =
+  *devutls/*,
+  *devlogs/*,
+  *tests/*,
+branch = True
