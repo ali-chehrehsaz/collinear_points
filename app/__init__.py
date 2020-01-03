@@ -19,21 +19,37 @@ def is_collinear(points: List[tuple]) -> bool:
     return (x2 - x1) * (y0 - y1) == (x0 - x1) * (y2 - y1)
 
 
-def three_collinears_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
+def collinear_pnts_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
     """Return all distinct and possible lines of 3 or more points.
     Lines are represented as a tuple of two with Slope-Intercept equation i.e. `y = slop * x + intercept`
+    :raise: TypeError if input is not a list
+    :raise:
     """
+
+    # Verify *arg (input) data type.
+    if not points:
+        return []
+    if not isinstance(points, list):
+        raise TypeError
+    if not isinstance(points[0], tuple) and len(points[0]) != 2:
+        raise ValueError
+
+
+
+
+
+
 
     # Ensure a unique collection of points.
     # Duplicates carry no meaningful information and increase complexity.
     points = list(set(points))
 
-    point_sets = combinations(points, 3)
+    three_pnts_cmbs = combinations(points, 3)
     lines = set()
-    for point_set in point_sets:
-        if is_collinear(point_set):
-            x0, y0 = point_set[0]
-            x1, y1 = point_set[1]
+    for cmb in three_pnts_cmbs:
+        if is_collinear(cmb):
+            x0, y0 = cmb[0]
+            x1, y1 = cmb[1]
 
             # `Exactly` represent Decimal numbers and avoid floating-point representation error.
             # Prevent having same line (fake duplicates) in results because of the floating-point representation error.
