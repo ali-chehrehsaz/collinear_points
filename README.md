@@ -1,6 +1,6 @@
 # Distinct set of lines intersecting 3 or more points in 2-dimensional space
 
-Using lateast release of Python as of this writting, i.e. Python 3.8.1, we write a function that takes 
+Using latest release of Python as of this writing, i.e. Python 3.8.1, we write a function that takes 
 - a list of x, y coordinates in 2-dimensional space as an input, and
 - returns a distinct list of lines that intersect 3 or more points from the input set.
 
