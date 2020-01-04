@@ -37,9 +37,9 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
     # Duplicates carry no meaningful information and increase complexity.
     points = list(set(points))
 
-    three_pnts_cmbs = combinations(points, 3)
-    lines = set()
-    for cmb in three_pnts_cmbs:
+    all_three_pnts_combinations = combinations(points, 3)
+    lines_set = set()
+    for cmb in all_three_pnts_combinations:
         if is_collinear(cmb):
             x0, y0 = cmb[0]
             x1, y1 = cmb[1]
@@ -50,8 +50,8 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
             delta_x = Decimal(str(x1 - x0))
             if not delta_x:
                 slop = inf
-                # The mathematical intercept is None but we use this notation `only when slop is infinite` to
-                # distinguish between parallel lines to y-axis.
+                # The mathematical intercept is None but we use this notation `only when slop is infinite`
+                # i.e x = Constant to distinguish between parallel lines to y-axis.
                 intercept = x0  # or x1
             elif not delta_y:
                 slop = 0.0
@@ -60,10 +60,10 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
                 slop = delta_y / delta_x
                 intercept = Decimal(str(y0)) - slop * Decimal(str(x0))
 
-            line = (slop, intercept)
-            lines.add(line)
+            curr_line = (float(slop), float(intercept))
+            lines_set.add(curr_line)
 
-    return [(float(slop), float(intercept)) for slop, intercept in lines]
+    return list(lines_set)
 
 
 if __name__ == "__main__":
