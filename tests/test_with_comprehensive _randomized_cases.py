@@ -42,12 +42,6 @@ def random_collinear_points(num_lines=3,
     return list(points)
 
 
-"""The test case data is generated with our randomized helper functions
-   The x and y pairs are randomly selected between -10 billions to +10 billions.
-   This is to reduce the probability of accidentally generating unintended points 
-   to practically less than 1 over 20 billions-th!
-   """
-
 
 def test_200_non_collinear_points():
     non_collinear_point = random_non_collinear_points(num_non_collinears=200)

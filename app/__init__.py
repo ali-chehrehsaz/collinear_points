@@ -4,12 +4,12 @@ returns a distinct list of lines that intersect 3 or more points from the input 
 """
 
 from itertools import combinations
-from typing import List, Tuple, Any, Any
+from typing import List, Tuple, Any
 from decimal import Decimal  # To `exactly` represent Decimal numbers
 from math import inf
 
 
-def is_collinear(points: List[tuple]) -> bool:
+def is_collinear(points: List[Tuple[Any, Any]]) -> bool:
     """Return True if points are collinear."""
     assert len(points) == 3
     x0, y0 = points[0]
@@ -27,7 +27,7 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
     """
 
     if not isinstance(points, list):
-        raise TypeError(f'Expected input was list but {type(points)} received.')
+        raise TypeError(f"Expected input was list but {type(points)} received.")
 
     # Core algorithm handles this edge case but for clarity explicitly implemented here.
     if len(points) < 3:
@@ -67,4 +67,4 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
 
 
 if __name__ == "__main__":
-    get_lines([(1, 1), (2, 2), (3, 3)])
+    raise RuntimeError(f'{__name__} is not intended to run independently.')
