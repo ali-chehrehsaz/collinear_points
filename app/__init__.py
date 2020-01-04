@@ -4,7 +4,7 @@ returns a distinct list of lines that intersect 3 or more points from the input 
 """
 
 from itertools import combinations
-from typing import List, Tuple, Any
+from typing import List, Tuple, Any, Any
 from decimal import Decimal  # To `exactly` represent Decimal numbers
 from math import inf
 
@@ -26,38 +26,12 @@ def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
     :raise:
     """
 
-    # Verify *arg (input) data type.
-    # if not points:
-    #     return []
-    # if not isinstance(points, list):
-    #     raise TypeError(f'Expected input was list but {type(points)} received.')
+    if not isinstance(points, list):
+        raise TypeError(f'Expected input was list but {type(points)} received.')
 
-
-
-
-
-
-
-
-
-    # if not isinstance(points[0], tuple):
-    #     raise TypeError(f'Cartesian points are expected in a tuple of 2 numeric elements. Not {type(points[0])}.')
-    # try:
-    #     x, y = points[3]  # Try to unpack `only` two values from expected 3rd point
-    # except IndexError(f'Expected at least 3 points. {len(points)} received.') as error:
-    #     print(error)
-    #     raise error
-    # except ValueError(f'Cartesian points are expected in a tuple of 2 numeric elements. {type(points[3])} received.') as error:
-    #     print(error)
-    #     raise error
-    # else:
-    #     try:
-    #         _ = x + y
-    #     except TypeError(f'Int or float were expected for Cartesian points. {type(x)} and {type(y)} received.') as error:
-    #         print(error)
-    #         raise error
-
-
+    # Core algorithm handles this edge case but for clarity explicitly implemented here.
+    if len(points) < 3:
+        return []  # No lines with not enough number of collinears.
 
     # Ensure a unique collection of points.
     # Duplicates carry no meaningful information and increase complexity.
