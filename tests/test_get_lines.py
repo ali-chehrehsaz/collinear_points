@@ -2,6 +2,7 @@
 """
 
 import pytest
+from random import randint, shuffle
 
 from app import get_lines
 
@@ -84,3 +85,23 @@ def test_3_collinear_points_1_line():
     assert intercept == y1 - slop * x1
     assert len(get_lines(points)) == 1
     assert get_lines(pnt_set4) == [(slop, intercept)]
+
+
+def test_10_y_axis_parallel_lines():
+    y_axis_parallel_lines = []
+    for _ in range(10):
+        x = randint(-100000, 100001)
+        y_axis_parallel_lines += [(x, randint(-10000, 10001)) for _ in range(10)]
+
+    shuffle(y_axis_parallel_lines)
+    assert len(get_lines(y_axis_parallel_lines)) == 10
+
+
+def test_10_x_axis_parallel_lines():
+    x_axis_parallel_lines = []
+    for _ in range(10):
+        y = randint(-100000, 100001)
+        x_axis_parallel_lines += [(randint(-10000, 10001), y) for _ in range(10)]
+
+    shuffle(x_axis_parallel_lines)
+    assert len(get_lines(x_axis_parallel_lines)) == 10
