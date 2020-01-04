@@ -12,7 +12,7 @@ from app import get_lines
 def random_non_collinear_points(num_non_collinears=10) -> List[tuple]:
     """Helper func to generate random (x, y) in 2D with possibility of duplicates.
     """
-    boundary = 1000000000
+    boundary = 10000000000
     nums = range(-boundary, boundary)
     return [(choice(nums), choice(nums)) for _ in range(num_non_collinears)]
 
@@ -23,7 +23,8 @@ def random_collinear_points(num_lines=3,
     """Helper func to generate 3 to 5 (x, y) points from 3 random lines in 2D
     A line represented as y=mx+b where m is the slop and b is line crossing y
     """
-    nums = range(-10, 11)
+    boundary = 10000000000
+    nums = range(-boundary, boundary)
     lines = [(choice(nums), choice(nums)) for _ in range(num_lines)]
 
     points = []
@@ -161,13 +162,26 @@ def test_3_collinear_points_1_line():
     assert get_lines(pnt_set4) == [(slop, intercept)]
 
 
-def test_200_non_collinear_points():
+# Comprehensive Randomized Tests                ----------------------------------------------------------
     """The test case data is generated with our randomized helper functions
-    The x and y are randomly selected between -10 billions tp +10 billions.
-    This is to reduce the probability of accidentally generating collinears to practically less than 1/20billions-th!
+    The x and y pairs are randomly selected between -10 billions to +10 billions.
+    This is to reduce the probability of accidentally generating unintended points 
+    to practically less than 1 over 20 billions-th!
     """
+
+
+def test_200_non_collinear_points():
     points = random_non_collinear_points(num_non_collinears=200)
     assert get_lines(points) == []  # Expecting no line to be found
+
+
+def test_300_collinear_points_forming_100_lines():
+    points = random_collinear_points(
+        num_lines=100,
+        min_collinear_points_per_line=3,
+        max_collinear_points_per_line=3
+    )
+    assert len(get_lines(points)) == 100
 
 
 if __name__ == '__main__':
@@ -181,7 +195,4 @@ if __name__ == '__main__':
     print(points)
 
 
-    # print(random_collinear_points(num_lines=1, max_collinear_points_per_line=3))
-
-
-
+    # print(random_collinear_points(num_lines=1, max_collinear_points_per_line=3
