@@ -9,11 +9,12 @@ import pytest
 from app import get_lines
 
 
-def random_non_collinear_points(num_points=10) -> List[tuple]:
+def random_non_collinear_points(num_non_collinears=10) -> List[tuple]:
     """Helper func to generate random (x, y) in 2D with possibility of duplicates.
     """
-    nums = range(-10000, 10000)
-    return [(choice(nums), choice(nums)) for _ in range(num_points)]
+    boundary = 1000000000
+    nums = range(-boundary, boundary)
+    return [(choice(nums), choice(nums)) for _ in range(num_non_collinears)]
 
 
 def random_collinear_points(num_lines=3,
@@ -121,6 +122,7 @@ def test_raise_exception_if_xy_points_not_tuple_of_2_numeric():
 
 
 # Core Algorithm Tests                          ----------------------------------------------------------
+# Trivial Test Cases
 def test_3_collinear_points_1_line():
     points = [(0, 0), (1, 1), (2, 2)]
     assert get_lines(points) == [(1, 0)]
@@ -159,13 +161,17 @@ def test_3_collinear_points_1_line():
     assert get_lines(pnt_set4) == [(slop, intercept)]
 
 
-def test_noncollinears():
-    points = random_non_collinear_points(num_points=100)
-    assert get_lines(points) == []
+def test_200_non_collinear_points():
+    """The test case data is generated with our randomized helper functions
+    The x and y are randomly selected between -10 billions tp +10 billions.
+    This is to reduce the probability of accidentally generating collinears to practically less than 1/20billions-th!
+    """
+    points = random_non_collinear_points(num_non_collinears=200)
+    assert get_lines(points) == []  # Expecting no line to be found
 
 
 if __name__ == '__main__':
-    points = random_non_collinear_points(num_points=0) + \
+    points = random_non_collinear_points(num_non_collinears=0) + \
              random_collinear_points(
                     num_lines=1,
                     min_collinear_points_per_line=3,
