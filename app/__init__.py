@@ -19,7 +19,7 @@ def is_collinear(points: List[tuple]) -> bool:
     return (x2 - x1) * (y0 - y1) == (x0 - x1) * (y2 - y1)
 
 
-def collinear_pnts_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
+def get_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, float]]:
     """Return all distinct and possible lines of 3 or more points.
     Lines are represented as a tuple of two with Slope-Intercept equation i.e. `y = slop * x + intercept`
     :raise: TypeError if input is not a list
@@ -27,16 +27,35 @@ def collinear_pnts_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, flo
     """
 
     # Verify *arg (input) data type.
-    if not points:
-        return []
-    if not isinstance(points, list):
-        raise TypeError
-    if not isinstance(points[0], tuple) and len(points[0]) != 2:
-        raise ValueError
+    # if not points:
+    #     return []
+    # if not isinstance(points, list):
+    #     raise TypeError(f'Expected input was list but {type(points)} received.')
 
 
 
 
+
+
+
+
+
+    # if not isinstance(points[0], tuple):
+    #     raise TypeError(f'Cartesian points are expected in a tuple of 2 numeric elements. Not {type(points[0])}.')
+    # try:
+    #     x, y = points[3]  # Try to unpack `only` two values from expected 3rd point
+    # except IndexError(f'Expected at least 3 points. {len(points)} received.') as error:
+    #     print(error)
+    #     raise error
+    # except ValueError(f'Cartesian points are expected in a tuple of 2 numeric elements. {type(points[3])} received.') as error:
+    #     print(error)
+    #     raise error
+    # else:
+    #     try:
+    #         _ = x + y
+    #     except TypeError(f'Int or float were expected for Cartesian points. {type(x)} and {type(y)} received.') as error:
+    #         print(error)
+    #         raise error
 
 
 
@@ -74,4 +93,4 @@ def collinear_pnts_lines(points: List[Tuple[Any, Any]]) -> List[Tuple[float, flo
 
 
 if __name__ == "__main__":
-    pass
+    get_lines([(1, 1), (2, 2), (3, 3)])

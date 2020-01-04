@@ -7,6 +7,11 @@ Using latest release of Python as of this writing, i.e. Python 3.8.1, we write a
 This function may be part of a larger application that includes other functions.
 
 
+If our input data type is correct i.e. List[Tuple[Numeric, Numeric]] 
+but not less than 3 points including no point at all we return an empty list indicating no possible line.
+
+
+
 ### Technologies
 
 ##### Development Tools:
