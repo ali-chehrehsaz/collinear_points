@@ -29,8 +29,8 @@ $ pipenv shell
 or if you prefer use python `venv`
 ```
 $ python3 -m venv venv
-$ pip install pytest pytest-cov
 $ source venv/bin/activate
+$ pip install pytest pytest-cov
 ```
 
 ### Run Algorithm in other Apps
@@ -41,15 +41,16 @@ from collinear.get_collinears import get_lines
 Please note this app purposely raises an exception if run independently. 
 
 ### Run Tests
-Run tests once without test coverage:
+**Run Tests Once**:
 ```
 $ pytest
 ```
-Run tests once with test coverage:
+**Run Tests Once with Test Coverage**:
 ```
 $ pytest --cov=.
 ```
-Run test continuously run the bash file `continues_test.sh` that keeps running tests while working on the code. This is also very useful since we use randomized test cases and running continuous tests exposes the algorithm to a loop of different tests continuously. The bash file runs test 1000 times in a terminal and display a notification on macOS systems when 1000 tests completed.
+**Run Tests Continuously**:
+> Run the bash file `continues_test.sh` that keeps running tests while working on the code. This is also very useful since we use randomized test cases and running continuous tests exposes the algorithm to a loop of different test cases continuously. The bash file runs tests 1000 times in a terminal and displays a notification on macOS systems when 1000 tests completed.
 ```
 $ ./continues_test.sh
 ```
