@@ -18,8 +18,12 @@ input to our algorithm and test against expected results.
 The core algorithm only uses built-in and standard python libraries. Since we use f strings we need Python 3.6 or higher. Please make sure you have `Python 3.6 or higher` installed on your machine. The test cases are verified only with Python 3.8.1.
 Per project requirement to use the best professional approach we use Pytest with test coverage plugin for our tests. As I truly believe the benefits of Pytest testing framework make it an excellent choice developing python projects including backend developments.
 
-
-To setup the project
+#### Project Files
+To setup the project, make a directory and unzip the project files. This is a private repo on GitHub. If you are granted access as a collaborator, you may clone the project.
+```
+$ git clone https://github.com/bnikanjam/terraverde_energy.git
+``` 
+#### Create Project Environment
 ```
 $ pipenv install --dev
 $ pipenv shell
@@ -29,8 +33,8 @@ $ pipenv shell
 or if you prefer use python `venv`
 ```
 $ python3 -m venv venv
-$ pip install pytest pytest-cov
 $ source venv/bin/activate
+$ pip install pytest pytest-cov
 ```
 
 ### Run Algorithm in other Apps
@@ -41,15 +45,16 @@ from collinear.get_collinears import get_lines
 Please note this app purposely raises an exception if run independently. 
 
 ### Run Tests
-Run tests once without test coverage:
+**Run Tests Once**:
 ```
 $ pytest
 ```
-Run tests once with test coverage:
+**Run Tests Once with Test Coverage**:
 ```
 $ pytest --cov=.
 ```
-Run test continuously run the bash file `continues_test.sh` that keeps running tests while working on the code. This is also very useful since we use randomized test cases and running continuous tests exposes the algorithm to a loop of different tests continuously. The bash file runs test 1000 times in a terminal and display a notification on macOS systems when 1000 tests completed.
+**Run Tests Continuously**:
+> Run the bash file `continues_test.sh` that keeps running tests while working on the code. This is also very useful since we use randomized test cases and running continuous tests exposes the algorithm to a loop of different test cases continuously. The bash file runs tests 1000 times in a terminal and displays a notification on macOS systems when 1000 tests completed.
 ```
 $ ./continues_test.sh
 ```
