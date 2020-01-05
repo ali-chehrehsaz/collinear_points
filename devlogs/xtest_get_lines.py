@@ -4,7 +4,7 @@
 import pytest
 from random import randint, shuffle
 
-from app import get_lines
+from app.collinear_points import get_lines
 
 
 def test_raise_exception_if_input_missing():

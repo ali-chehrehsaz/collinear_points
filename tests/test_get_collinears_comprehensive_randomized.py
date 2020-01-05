@@ -4,7 +4,7 @@
 from random import choice, randint, shuffle
 from typing import List
 
-from app import get_lines
+from app.get_collinears import get_collinears
 
 
 def random_non_collinear_points(num_non_collinears=10) -> List[tuple]:
@@ -45,7 +45,8 @@ def random_collinear_points(num_lines=3,
 
 def test_200_non_collinear_points():
     non_collinear_point = random_non_collinear_points(num_non_collinears=200)
-    assert get_lines(non_collinear_point) == []  # Expecting no line to be found
+    # non_collinear_point = [(23, 6342), (42, 7777), (54, 1), (24111, 0), (6, 77)]
+    assert get_collinears(non_collinear_point) == []  # Expecting no line to be found
 
 
 def test_300_collinear_points_forming_100_lines():
@@ -54,7 +55,7 @@ def test_300_collinear_points_forming_100_lines():
         min_collinear_points_per_line=3,
         max_collinear_points_per_line=3
     )
-    assert len(get_lines(collinear_points)) == 100
+    assert len(get_collinears(collinear_points)) == 100
 
 
 def test_300_to_900_collinear_points_forming_100_lines():
@@ -63,16 +64,16 @@ def test_300_to_900_collinear_points_forming_100_lines():
         min_collinear_points_per_line=3,
         max_collinear_points_per_line=9  # each line can have `randomly` between 3 to 9 collinear points
     )
-    assert len(get_lines(collinear_points)) == 100
+    assert len(get_collinears(collinear_points)) == 100
 
 
 # This is the most important comprehensive test
-def test_about_200_collinears_and_150_non_collinears_mixed():
+def test_about_400_collinears_and_400_non_collinears_mixed():
     mixed_points = random_collinear_points(
-        num_lines=50,
+        num_lines=100,
         min_collinear_points_per_line=3,
         max_collinear_points_per_line=5
-    ) + random_non_collinear_points(num_non_collinears=150)
+    ) + random_non_collinear_points(num_non_collinears=400)
 
     shuffle(mixed_points)  # Randomly rearrange all points in-place
-    assert len(get_lines(mixed_points)) == 50
+    assert len(get_collinears(mixed_points)) == 100

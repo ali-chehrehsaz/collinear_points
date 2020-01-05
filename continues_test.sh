@@ -5,7 +5,7 @@ while [ $counter -le 1000 ]
   do
     echo $counter
     ((counter++))
-    pytest -s -p no:warnings
+    pytest -s -p no:warnings --cov=.
     sleep 5
   done
 echo 1000 test cycle Completed
