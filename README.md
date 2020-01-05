@@ -1,37 +1,58 @@
-# Distinct set of lines intersecting 3 or more points in 2-dimensional space
+# Discover Collinear Points
 
-Using latest release of Python as of this writing, i.e. Python 3.8.1, we write a function that takes 
-- a list of x, y coordinates in 2-dimensional space as an input, and
-- returns a distinct list of lines that intersect 3 or more points from the input set.
+### Desired Results
+This project is to implement a comprehensively tested algorithm that groups collinear points in 2-dimensional space and 
+represent them with distinct lines in Cartesian coordinate system in output. The output represented as a list of tuples of 2 elements (slop, intercept) for each unique discovered line.
 
-This function may be part of a larger application that includes other functions.
-
-
-If our input data type is correct i.e. List[Tuple[Numeric, Numeric]] 
-but not less than 3 points including no point at all we return an empty list indicating no possible line.
-
-
-
-### Technologies
-
-##### Development Tools:
-**pytest:** The pytest framework makes it easy to write small tests, yet scales to support complex functional testing.
-
-**pytest-cov:** Pytest plugin produces coverage reports.
-
-**pipenv:** Managing dependencies and development environments for collaborative Python projects!
-
-**mypy:** Optional static type checker for Python that combines the benefits of dynamic typing and static typing.
-
-**flake8:** Enforce [PEP8 style guidelines](https://www.python.org/dev/peps/pep-0008/).
-
-**black:** Opinionated Code auto-formatter!
-
-**isort:** Sort imports alphabetically and automatically separated into sections.
+### The Approach to Test Cases
+- **Trivial Test Cases:** 
+These are mostly sanity tests to see expected output for vary simple understandable inputs.
+Simple edge cases of parallel lines to y and x axes. 
+Testing the app throws and passes exceptions when expected input is not received. 
+- **Comprehensive Randomized Test Cases:** Using two helper functions, we can generate any arbitrary number of 
+non collinear points (including duplicates) and a set of any arbitrary number of lines with 3 or more collinear points on each. And feed this data as 
+input to our algorithm and test against expected results.
 
 
-### Set up Python Local Development
+### Set up Local Development
+The core algorithm only uses built-in and standard python libraries. Since we use f strings we need Python 3.6 or higher. Please make sure you have `Python 3.6 or higher` installed on your machine. The test cases are verified only with Python 3.8.1.
+Per project requirement to use the best professional approach we use Pytest with test coverage plugin for our tests. As I truly believe the benefits of Pytest testing framework make it an excellent choice developing python projects including backend developments.
+
+
+To setup the project
+```
+$ pipenv install --dev
+$ pipenv shell
+```
+> Please note that `pipenv` installs code quality tools for typing and enforcing PEP8 styling guidelines from Pipfile.lock that are not necessary for running or testing of this project and you may use them if you wish.
+
+or if you prefer use python `venv`
+```
+$ python3 -m venv venv
+$ pip install pytest pytest-cov
+$ source venv/bin/activate
+```
+
+### Run Algorithm in other Apps
+The algorithm script file is in a package Python directory. Copy this directory to your other app Python project root and import it as:
+```
+from collinear.get_collinears import get_lines
+```
+Please note this app purposely raises an exception if run independently. 
+
 ### Run Tests
+Run tests once without test coverage:
+```
+$ pytest
+```
+Run tests once with test coverage:
+```
+$ pytest --cov=.
+```
+Run test continuously run the bash file `continues_test.sh` that keeps running tests while working on the code. This is also very useful since we use randomized test cases and running continuous tests exposes the algorithm to a loop of different tests continuously. The bash file runs test 1000 times in a terminal and display a notification on macOS systems when 1000 tests completed.
+```
+$ ./continues_test.sh
+```
 
 ---
 ###### Acknowledgements
