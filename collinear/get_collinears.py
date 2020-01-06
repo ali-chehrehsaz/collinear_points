@@ -1,12 +1,14 @@
-"""Group collinear Points and represent/return them as distinct lines in Cartesian coordinate system.
+"""Group collinear 2D input (x, y) points and representing them as distinct lines.
+The return value is a list of computed lines of collinear points.
+Each line is represented with a tuple of two floats as (slop, y-intercept) in Cartesian coordinate system.
 """
 
 
 from decimal import \
-    Decimal  # To avoid inherent floating-point binary representation error
-from math import inf  # Represent infinity for vertical lines slops
-from random import choice  # Choose a random element when examining input args
-from typing import Any, List, Tuple  # Optional type deceleration
+    Decimal  # To avoid inherent floating-point binary representation error.
+from math import inf  # Represent infinity for vertical lines slops.
+from random import choice  # Choose a random element when examining input args.
+from typing import Any, List, Tuple  # Optional type deceleration.
 
 
 def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]]:
@@ -32,15 +34,23 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
     # Ensure a unique collection of Cartesian points. Duplicates do not contribute to desired return.
     xy_list = list(set(xy_list))
 
-    # Core Algorithm:
-    # A O(n^2) runtime improved algorithm over the trivial O(n^3). Instead of looking for collinear points
-    # in each possible combination of 3 i.e. brut-forcing, we travers points two times saving all possible lines in
-    # between two points a hash-table (Python dictionary) and flag then with a value of False. If an existing line is
-    # seen again that indicates there is 3 or more points in our data forming that line that make them collinear points.
-    # We then flag those lines with value True. The output would be all lines in dictionary with True value.
+    # Algorithm:
+    # This is a O(n^2) runtime improved algorithm over the trivial O(n^3). The straight-forward approach is verify
+    # collinear points in each possible combination of 3 points, i.e. brut-forcing, which is O(n^3).
+    # Instead we travers points two times saving all possible lines in between two points in a hashtable/dictionary and
+    # assign two-pointer lines them with False value. {(slop, y-intercept): False}
+    # During this double travers if a line already exist it indicates there are more than collinear points in our input
+    # for than line. We change the value of those lines as True to filter the False lines from return value.
+
 
     # To exactly represent Decimal numbers and avoid floating-point representation error.
     # Prevents including fake distinct lines in results because of the floating-point representation error.
+    # Example:
+    #       n = 0.1 + 0.1 + 0.1
+    #       n = 0.30000000000000004
+    #
+    #       n = Decimal('0.1') + Decimal('0.1') + Decimal('0.1')
+    #       float(n) = 0.3
     xy_list = [(Decimal(str(xy[0])), Decimal(str(xy[1]))) for xy in xy_list]
 
     lines = {}
@@ -61,9 +71,11 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
 
             line = (slop, intercept)
             if line not in lines:
-                lines[line] = False  # New line with 2 points
+                # Add line between two points with False as value indicating no 3rd or more points yet on this line.
+                lines[line] = False
             else:
-                lines[line] = True  # Seen more than once i.e. a line with 3 or more collinears
+                # When line already exist with new points it indicate there are more than 2 points or collinear points.
+                lines[line] = True
 
     # Return all lines with 3 or more collinears
     return [(float(line[0]), float(line[1])) for line in lines.keys() if lines[line]]
