@@ -70,17 +70,11 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
 
             line = Line(slope, intercept)
 
-<<<<<<< HEAD
             key =  line.__hash__()
             if key in lines:
                 line.contains_collinear = True
             lines[key] = line
-=======
-            line_id =  line.__hash__()
-            if line_id in lines:
-                line.contains_collinear = True
-            lines[line_id] = line
->>>>>>> origin/master
+
 
     return [
         (float(lines[key].slope), float(lines[key].intercept))
