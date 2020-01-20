@@ -21,10 +21,10 @@ class Line:
     def __hash__(self):
         return hash((self.slope, self.intercept))
 
-    def __eq__(self, other):
-        if other.__class__ is not self.__class__:
-            return NotImplemented
-        return (self.slope, self.intercept) == (other.slope, other.intercept)
+    # def __eq__(self, other):
+    #     if other.__class__ is not self.__class__:
+    #         return NotImplemented
+    #     return (self.slope, self.intercept) == (other.slope, other.intercept)
 
 
 def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]]:
