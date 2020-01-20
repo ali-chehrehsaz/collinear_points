@@ -38,7 +38,7 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
     # This is a O(n^2) runtime improved algorithm over the trivial O(n^3). The straight-forward approach is verify
     # collinear points in each possible combination of 3 points, i.e. brut-forcing, which is O(n^3).
     # Instead we travers points two times saving all possible lines in between two points in a hashtable/dictionary and
-    # assign two-pointer lines them with False value. {(slop, y-intercept): False}
+    # assign two-pointer lines them with False value. {(slope, y-intercept): False}
     # During this double travers if a line already exist it indicates there are more than collinear points in our input
     # for than line. We change the value of those lines as True to filter the False lines from return value.
 
@@ -60,16 +60,16 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
 
             # Special case: parallel lines with y-axis
             if not x1 - x0:
-                slop = inf
+                slope = inf
                 # There is no mathematical intercept for parallel lines with y-axis, but
                 # We use (inf, x) to represent this special case to identify distinct vertical lines.
                 intercept = x0
             # All other cases:
             else:
-                slop = (y1 - y0) / (x1 - x0)
-                intercept = y1 - slop * x1
+                slope = (y1 - y0) / (x1 - x0)
+                intercept = y1 - slope * x1
 
-            line = (slop, intercept)
+            line = (slope, intercept)
             if line not in lines:
                 # Add line between two points with False as value indicating no 3rd or more points yet on this line.
                 lines[line] = False
