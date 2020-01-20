@@ -3,7 +3,7 @@ The return value is a list of computed lines of collinear points.
 Each line is represented with a tuple of two floats as (slop, y-intercept) in Cartesian coordinate system.
 """
 
-
+from dataclasses import dataclass
 from decimal import \
     Decimal  # To avoid inherent floating-point binary representation error.
 from math import inf  # Represent infinity for vertical lines slops.
@@ -11,24 +11,18 @@ from random import choice  # Choose a random element when examining input args.
 from typing import Any, List, Tuple  # Optional type deceleration.
 
 
+@dataclass
 class Line:
     """"""
-    def __init__(self, slope, intercept):
-        self.slope = slope
-        self.intercept = intercept
-        self.contains_collinear = False
+    slope: Decimal
+    intercept: Decimal
+    contains_collinear: bool = False
 
     def __hash__(self):
         return hash((self.slope, self.intercept))
 
-    # def __eq__(self, other):
-    #     if other.__class__ is not self.__class__:
-    #         return NotImplemented
-    #     return (self.slope, self.intercept) == (other.slope, other.intercept)
-
 
 def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]]:
-
 
     if xy_list == []:  # Do not refactor with `if not xy_list:`
         return []

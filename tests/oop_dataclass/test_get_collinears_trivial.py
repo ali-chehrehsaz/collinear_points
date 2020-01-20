@@ -5,7 +5,7 @@ from random import randint, shuffle
 
 import pytest
 
-from collinear.get_collinears_oop import get_lines
+from collinear.get_collinears_oop_dataset import get_lines
 
 
 def test_raise_exception_if_missing_input():

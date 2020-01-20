@@ -4,7 +4,7 @@
 from random import choice, randint, shuffle
 from typing import List
 
-from collinear.get_collinears_oop import get_lines
+from collinear.get_collinears_oop_dataset import get_lines
 
 
 def random_non_collinear_points(num_non_collinears=10) -> List[tuple]:
