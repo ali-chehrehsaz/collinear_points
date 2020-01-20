@@ -20,15 +20,17 @@ class Line:
 
     def __hash__(self):
         return hash((self.slope, self.intercept))
+        # hash(repr(self))
 
-    # def __eq__(self, other):
-    #     if other.__class__ is not self.__class__:
-    #         return NotImplemented
-    #     return (self.slope, self.intercept) == (other.slope, other.intercept)
+    def __eq__(self, other):
+        if other.__class__ is not self.__class__:
+            return NotImplemented
+        return (self.slope, self.intercept) == (other.slope, other.intercept)
+
+
 
 
 def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]]:
-
 
     if xy_list == []:  # Do not refactor with `if not xy_list:`
         return []
@@ -50,9 +52,27 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
 
     # Ensure a unique collection of Cartesian points. Duplicates do not contribute to desired return.
     xy_list = list(set(xy_list))
+
+    # Algorithm:
+    # This is a O(n^2) runtime improved algorithm over the trivial O(n^3). The straight-forward approach is verify
+    # collinear points in each possible combination of 3 points, i.e. brut-forcing, which is O(n^3).
+    # Instead we travers points two times saving all possible lines in between two points in a hashtable/dictionary and
+    # assign two-pointer lines them with False value. {(slope, y-intercept): False}
+    # During this double travers if a line already exist it indicates there are more than collinear points in our input
+    # for than line. We change the value of those lines as True to filter the False lines from return value.
+
+
+    # To exactly represent Decimal numbers and avoid floating-point representation error.
     # Prevents including fake distinct lines in results because of the floating-point representation error.
+    # Example:
+    #       n = 0.1 + 0.1 + 0.1
+    #       n = 0.30000000000000004
+    #
+    #       n = Decimal('0.1') + Decimal('0.1') + Decimal('0.1')
+    #       float(n) = 0.3
     xy_list = [(Decimal(str(xy[0])), Decimal(str(xy[1]))) for xy in xy_list]
-    lines = {}
+
+    lines = set()
     for i, xy in enumerate(xy_list[:-1]):
         x0, y0 = xy
         for x1, y1 in xy_list[i+1:]:
@@ -69,24 +89,12 @@ def get_lines(xy_list: List[Tuple[Any, Any]] = None) -> List[Tuple[float, float]
                 intercept = y1 - slope * x1
 
             line = Line(slope, intercept)
-
-<<<<<<< HEAD
-            key =  line.__hash__()
-            if key in lines:
+            if line in lines:
                 line.contains_collinear = True
-            lines[key] = line
-=======
-            line_id =  line.__hash__()
-            if line_id in lines:
-                line.contains_collinear = True
-            lines[line_id] = line
->>>>>>> origin/master
+            lines.add(line)
 
-    return [
-        (float(lines[key].slope), float(lines[key].intercept))
-        for key in lines.keys()
-        if lines[key].contains_collinear
-    ]
+    # Return all lines with 3 or more collinears
+    return [(float(line.slope), float(line.intercept)) for line in lines if line.contains_collinear]
 
 
 if __name__ == "__main__":
