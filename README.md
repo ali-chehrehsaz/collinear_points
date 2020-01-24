@@ -16,9 +16,8 @@ The core algorithm only uses built-in and standard python libraries. One of the 
 Per the project requirement to use the best professional approach, we use Pytest with the test-coverage plugin for our tests. I truly believe the benefits of the Pytest testing framework make it an excellent choice developing python projects, including backend developments.
 
 #### Project Files
-To setup, the project, make a directory and unzip the project files. The GitHub repo is private. If you are granted access as a collaborator, you may clone the project.
 ```
-$ git clone https://github.com/bnikanjam/terraverde_energy.git
+$ git clone https://github.com/bnikanjam/collinear_points.git
 ``` 
 #### Create Project Environment
 ```
@@ -55,7 +54,3 @@ $ pytest --cov=.
 ```
 $ ./continues_test.sh
 ```
-
----
-###### Acknowledgements
-- TerraVerde Energy
